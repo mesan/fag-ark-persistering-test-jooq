@@ -56,6 +56,11 @@
 			<version>7.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
 		<!-- JOOQ Dependencies for JOOQ and For auto generated code -->
 		<dependency>
 			<groupId>org.jooq</groupId>
