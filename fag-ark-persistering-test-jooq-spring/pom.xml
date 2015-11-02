@@ -28,6 +28,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 
@@ -55,7 +59,10 @@
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -88,60 +95,68 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<plugin>
-				<groupId>org.jooq</groupId>
-				<artifactId>jooq-codegen-maven</artifactId>
-				<version>${jooq-version}</version>
-
-				<executions>
-					<execution>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-
-				<dependencies>
-					<dependency>
-						<groupId>org.postgresql</groupId>
-						<artifactId>postgresql</artifactId>
-						<version>${postgres-version}</version>
-					</dependency>
-				</dependencies>
-
-				<!-- Specify the plugin configuration. The configuration format is the 
-					same as for the standalone code generator -->
-				<configuration>
-					<jdbc>
-						<driver>org.postgresql.Driver</driver>
-						<url>jdbc:postgresql://172.17.0.1:5432/postgres</url>
-						<user>postgres</user>
-						<password>12345</password>
-					</jdbc>
-
-					<generator>
-						<name>org.jooq.util.JavaGenerator</name>
-						<database>
-							<name>org.jooq.util.postgres.PostgresDatabase</name>
-							<includes>.*</includes>
-							<excludes></excludes>
-							<inputSchema>public</inputSchema>
-						</database>
-						<target>
-							<packageName>no.mesan.ark.persistering.generated</packageName>
-							<directory>src/main/java</directory>
-						</target>
-						<generate>
-							<immutablePojos>true</immutablePojos>
-							<jpaAnnotations>true</jpaAnnotations>
-						</generate>
-					</generator>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>generate</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jooq</groupId>
+						<artifactId>jooq-codegen-maven</artifactId>
+						<version>${jooq-version}</version>
 
+						<executions>
+							<execution>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+							</execution>
+						</executions>
+
+						<dependencies>
+							<dependency>
+								<groupId>org.postgresql</groupId>
+								<artifactId>postgresql</artifactId>
+								<version>${postgres-version}</version>
+							</dependency>
+						</dependencies>
+
+						<!-- Specify the plugin configuration. The configuration format is 
+							the same as for the standalone code generator -->
+						<configuration>
+							<jdbc>
+								<driver>org.postgresql.Driver</driver>
+								<url>jdbc:postgresql://172.17.0.1:5432/postgres</url>
+								<user>postgres</user>
+								<password>12345</password>
+							</jdbc>
+
+							<generator>
+								<name>org.jooq.util.JavaGenerator</name>
+								<database>
+									<name>org.jooq.util.postgres.PostgresDatabase</name>
+									<includes>.*</includes>
+									<excludes></excludes>
+									<inputSchema>public</inputSchema>
+								</database>
+								<target>
+									<packageName>no.mesan.ark.persistering.generated</packageName>
+									<directory>src/main/java</directory>
+								</target>
+								<generate>
+									<pojos>true</pojos>
+									<jpaAnnotations>true</jpaAnnotations>
+									<daos>true</daos>
+								</generate>
+							</generator>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
