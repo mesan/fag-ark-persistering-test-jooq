@@ -35,6 +35,10 @@ public class Demo {
 		jooqDemo.runFilms();
 		stopwatch.stop();
 		
+		stopwatch.start("jOOQ Comedy");
+		jooqDemo.runComedy();
+		stopwatch.stop();
+		
 		System.out.println(stopwatch.prettyPrint());
 	}
 
