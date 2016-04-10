@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<jooq-version>3.6.4</jooq-version>
+		<jooq-version>3.7.3</jooq-version>
 		<postgres-version>9.4-1203-jdbc42</postgres-version>
 	</properties>
 
@@ -129,7 +129,7 @@
 						<configuration>
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
-								<url>jdbc:postgresql://172.17.0.1:5432/postgres</url>
+								<url>jdbc:postgresql://localhost:5432/pagila</url>
 								<user>postgres</user>
 								<password>12345</password>
 							</jdbc>

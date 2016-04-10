@@ -14,7 +14,10 @@ public class FagArkPersisteringTestJooqSpringApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication
 				.run(FagArkPersisteringTestJooqSpringApplication.class, args);
-		Demo demo = context.getBean(Demo.class);
+//		Demo demo = context.getBean(Demo.class);
+//		demo.run();
+		Faghelg demo = context.getBean(Faghelg.class);
 		demo.run();
+		demo.runJDBC();
 	}
 }
